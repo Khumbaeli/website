@@ -16,22 +16,25 @@
     <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 
-<body class="App-header">
+<body class="App">
     <div class="navbar">
-        <a class="/" href="">Home</a>
+        <a href="/">Home</a>
         <a href="/projects">Projects</a>
         <a href="/photography">Photos</a>
         <a href="/climbing">Climbing</a>
         
     </div>
-    <div class="App">
-        <header class="App-header">
-            <p>
-                My <span class="heart">♥️</span> Portfolio
-            </p>
-            <img src="{% static 'Shot.JPG' %}" class="App-logo" alt="logo" />
-        </header>
-    </div>                                                                              
+    <section class="project">
+        <h2 class="project-heading">My projects</h2>
+        <div class="project-container">
+            <a href="projects/conditions/" class="project-box">
+                <img src="../static/Pictures/Intro.JPG" alt="Temps">
+            </a>
+            <a href="" class="project-box">
+                <img src="../static/Pictures/Intro.JPG" alt="Temps">
+            </a>
+        </div>
+    </section>                                                                              
 </body>
 
 </html>
