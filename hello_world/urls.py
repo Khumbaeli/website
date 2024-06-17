@@ -27,7 +27,7 @@ urlpatterns = [
     path("photography/", core_views.photography, name='Photo'),
     path("climbing/", core_views.climbing, name='Climb'),
     path("projects", core_views.project, name='Project'),
-    path("projects/conditions/", core_views.project_condition, name='Conditions'),
+    path("conditions/", core_views.project_condition, name='Conditions'),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
