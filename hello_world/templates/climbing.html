@@ -13,25 +13,45 @@
     <meta name="theme-color" content="#000000">
     <title>{% block title %}{{ title }} | GitHub Codespaces ♥️ Django{% endblock %}</title>
     
-    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="../static/main.css">
 </head>
 
-<body class="App-header">
-    <div class="topnav">
-        <a class="" href="">Home</a>
+<body class="App">
+    <div class="navbar">
+        <a class="/" href="">Home</a>
+        <a href="/projects">Projects</a>
         <a href="/photography">Photos</a>
         <a href="/climbing">Climbing</a>
-        <a href="/projects">Projects</a>
-      </div>
-
-    <div class="App">
-        <header class="App-header">
-            <img src="{% static 'Shot.JPG' %}" class="App-logo" alt="logo" />
-            <p>
-                My <span class="heart">♥️</span> Portfolio
-            </p>
-            
-        </header>
+        
+    </div>
+    
+    <div class="drops">
+        <details>
+            <summary>Pilot Mountain</summary>
+            <ul>
+              <li>True Grits - 5.8</li>
+              <li>Pilot Error - 5.8</li>
+              <li>Pole Dancer - 5.7</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Red River Gorge</summary>
+            <ul>
+              <li>Vitamin C - 5.10a</li>
+              <li>Wheelchair Access</li>
+              <li>Riding the Short Buzz - 5.8</li>
+              <li>Brolo el Cuñado - 5.8</li>
+              <li>Prehistoric Extermination - 5.8</li>
+              <li>Neanderfall - 5.9</li>
+            </ul>
+          </details> 
+          <details>
+            <summary>New River Gorge</summary>
+            <ul>
+              <li>Hippie Dreams - 5.7</li>
+              <li>Butterfly Flake - 5.7</li>
+            </ul>
+          </details>        
     </div>
 </body>
 

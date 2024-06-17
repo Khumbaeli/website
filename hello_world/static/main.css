@@ -110,6 +110,9 @@ body {
 .column:nth-child(2) {
   text-align: justify;
 }
+.column:nth-child(2) a {
+  color: white;
+}
 
 .image-gallery {
   display: flex;
@@ -172,3 +175,10 @@ body {
   transform: scale(1);
 }
 
+.drops {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
