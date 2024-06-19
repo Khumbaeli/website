@@ -1,0 +1,10 @@
+{% if all_locations %}
+    <ul>
+    {% for l in all_locations %}
+        <li><a href="/conditions/ {{l.id }}/">{{ l.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No.</p>
+{% endif %}
