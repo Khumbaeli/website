@@ -1,7 +1,7 @@
 {% if all_locations %}
     <ul>
     {% for l in all_locations %}
-        <li><a href="/conditions/ {{l.id }}/">{{ l.name }}</a></li>
+        <li><a href="/conditions/{{l.id }}">{{ l.name }} {{l.id}}</a></li>
     {% endfor %}
     </ul>
 
