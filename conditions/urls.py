@@ -4,5 +4,4 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("<str:location_name>", views.detail, name="locations"),
 ]
