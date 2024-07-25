@@ -1,32 +1,48 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.html import format_html
 from dotenv import load_dotenv
+from .models import Locations
+from .forms import InputLocation
+
 import requests, os, json, datetime
 
-from .models import Locations
+
 
 # Create your views here.
 
 
 def index(request):
+    if request.method == 'POST':
+        form = InputLocation(request.POST)
+        token = request.POST.get('form_token')
+        if form.is_valid():
+            form.save()
+            return redirect('index') 
+
     
-    locations = Locations.objects.all()
+    locations = getLocations().all()
     ls = []
     for area in locations:
-        ls.append(getWeather(area.latitude, area.longitude))
+        ls.append(getWeather(area.name, area.latitude, area.longitude))
 
     tables = generateTables(ls)
 
-    context = {'all_locations': tables}
+    context = {'tables' : tables, 'form': InputLocation()}
     
-    return render(request, 'conditions.html', context)
+    return render(request, 'conditions.html', context)   
+
 
 def generateTables(data):
     htmlTables = []
+    index = 0
     for crag in data:
         dt = json.loads(crag)
 
+
         html = '<table border="1">'
         html += '<tr><th>City</th>'
+    
 
 
         for day in dt['list']:
@@ -45,11 +61,24 @@ def generateTables(data):
 
         html += '</table>'
 
+        index += 1
         htmlTables.append(html)
     return htmlTables
 
-def cut(temps):
+def delete_forecast(request, index):
+    if request.method == 'POST': 
+        forecast_data = getLocations()
+        if 0 <= index < len(forecast_data.all()):
+            print(1)
+            location = forecast_data.all()[index]
+            location.delete()
+            
+    return redirect('index')
+
+def cut(temps, name):
     data = json.loads(temps)
+
+    data["city"]["name"] = name
 
     goodTemps = [
     {
@@ -66,7 +95,10 @@ def cut(temps):
     data['list'] = goodTemps
     return json.dumps(data)
 
-def getWeather(lat, lon):
+def getLocations():
+    return Locations.objects
+
+def getWeather(name, lat, lon):
     load_dotenv()
     api_key = os.getenv('WEATHER_API_KEY')
 
@@ -76,7 +108,7 @@ def getWeather(lat, lon):
     # Parse the response as JSON
         data = json.dumps(response.json())
     # Now you can work with your data
-        data = cut(data) #cut the data up
+        data = cut(data, name) #cut the data up
         return data
     else:
         print(f"Request failed with status code {response.status_code}")
