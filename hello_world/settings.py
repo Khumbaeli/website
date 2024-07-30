@@ -38,6 +38,7 @@ if 'CODESPACE_NAME' in os.environ:
 
 INSTALLED_APPS = [
     "django.contrib.admin",
+    "ordered_model",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

@@ -1,0 +1,75 @@
+body {
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #161718;
+}
+.horizontal-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.buttons{
+    text-align: center;
+}
+.my-button {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #505660;
+    color: white;
+    font-size: 15px;
+}
+
+.my-button:last-child {
+    margin-right: 0;
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+}
+
+.form-field label {
+    margin-right: 5px;
+}
+
+.App {
+    background-color: #282c34;
+    color: white;
+}
+
+.tt{
+    
+    text-align: center;
+}
+
+#formToggle:hover {
+    color: #007bff;
+    /* Or any color you prefer */
+}

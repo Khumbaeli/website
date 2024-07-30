@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.utils.html import format_html
+from django.contrib import messages
 from dotenv import load_dotenv
 from .models import Locations
 from .forms import InputLocation
@@ -65,15 +64,37 @@ def generateTables(data):
         htmlTables.append(html)
     return htmlTables
 
-def delete_forecast(request, index):
-    if request.method == 'POST': 
-        forecast_data = getLocations()
-        if 0 <= index < len(forecast_data.all()):
-            print(1)
-            location = forecast_data.all()[index]
+def forecast_actions(request, index):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        location = getLocations().all()[index]
+        
+        if action == 'delete':
             location.delete()
+            messages.success(request, 'Location deleted successfully.')
+        elif action == 'move_up':
+            if index > 0:
+                location.up()
+                messages.success(request, 'Location moved up successfully.')
+            else:
+                messages.warning(request, 'Location is already at the top.')
+        elif action == 'move_down':
+            if index < len(getLocations().all()):
+                location.down()
+                messages.success(request, 'Location moved down successfully.')
+            else:
+                messages.warning(request, 'Location is already at the bottom.')
+        elif action == 'top':
+            if index != 0:
+                location.top()
+                messages.success(request, 'Location moved to the top successfully.')
+            else:
+                messages.success(request, 'Location already at the top')
+
+
             
     return redirect('index')
+            
 
 def cut(temps, name):
     data = json.loads(temps)
