@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'conditions/style.css' %}">
+<link rel="stylesheet" href="https://kit.fontawesome.com/7095e7bc01.js">
+
+
+<html lang="en">
+<script src="https://kit.fontawesome.com/7095e7bc01.js" crossorigin="anonymous"></script>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+            const formToggle = document.getElementById('formToggle');
+            const formContainer = document.getElementById('formContainer');
+
+            formToggle.addEventListener('click', function () {
+                if (formContainer.style.display === 'none') {
+                    formContainer.style.display = 'block';
+                } else {
+                    formContainer.style.display = 'none';
+                }
+            });
+        });
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+
+<body class="App">
+    <h1 class = 'tt'>Weather Forecast</h1>
+
+    <!-- <h2 id="formTitle" style="cursor: pointer;">Add New Forecast</h2> -->
+    
+    <h2 id="formToggle" style="cursor: pointer;">Add New Forecast</h2>
+    
+    <div id="formContainer" style="display: none;">
+        <form method="post" class="horizontal-form">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+            </div>
+            {% endfor %}
+            <button type="submit">Add Forecast</button>
+        </form>
+    </div>
+
+    
+    <h1>Weather Forecast</h1>
+    {% for table in tables %}
+    <form method="post" action="{% url 'forecast_actions' forloop.counter0 %}">
+        {% csrf_token %}
+        {{ table|safe }}
+        <div class="buttons">
+            <button class ='my-button' type="submit" name="action" value="delete"
+                onclick="return confirm('Are you sure you want to delete this location?');"><i class="fa fa-trash"></i></button>
+            <button class ='my-button' type="submit" name="action" value="move_down"><i class="fa fa-arrow-down"></i></button>
+            <button class ='my-button' type="submit" name="action" value="move_up"><i class="fa fa-arrow-up"></i></button>
+            <button class ='my-button' type="submit" name="action" value="top"><i class="fa fa-angle-double-up"></i></button>
+        </div>
+    
+        <br>
+        <br>
+    {% endfor %}
+    
+    
+</body>
+
+</html>

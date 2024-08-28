@@ -24,5 +24,10 @@ def project(request):
     }
     return render(request, "project.html", context)
 
+def project_condition(request):
+    context = {
+        "title": "Conditions",
+    }
+    return render(request, "projects/conditions/temperature_frontend.html", context)
 
 

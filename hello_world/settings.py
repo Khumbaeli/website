@@ -38,12 +38,14 @@ if 'CODESPACE_NAME' in os.environ:
 
 INSTALLED_APPS = [
     "django.contrib.admin",
+    "ordered_model",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
+    "conditions.apps.ConditionsConfig",
 ]
 
 MIDDLEWARE = [
