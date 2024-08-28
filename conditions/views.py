@@ -3,6 +3,7 @@ from django.contrib import messages
 from dotenv import load_dotenv
 from .models import Locations
 from .forms import InputLocation
+import googlemaps
 
 import requests, os, json, datetime
 
@@ -41,6 +42,7 @@ def generateTables(data):
 
         html = '<table border="1">'
         html += '<tr><th>City</th>'
+        html += '<th>Distance</th>'
     
 
 
@@ -51,6 +53,10 @@ def generateTables(data):
 
         html += '<tr>'
         html += f'<td>{dt["city"]["name"]}</td>'
+
+        coord = (dt['city']['coord']['lat'],dt['city']['coord']['lon'])
+
+        html += f'<td>{ distance(coordinates=coord) }</td>'
 
         for day in dt['list']:
             feels_like_day = (day['feels_like']['day'])
@@ -63,6 +69,18 @@ def generateTables(data):
         index += 1
         htmlTables.append(html)
     return htmlTables
+
+def distance(coordinates):
+    load_dotenv()
+    map_client = googlemaps.Client(key=os.getenv("GOOGLE_API_KEY"))
+
+    my_coordinates = (26.3650, -80.1328)
+    
+    directions_result = map_client.distance_matrix(my_coordinates,
+                                     coordinates,
+                                     mode="driving",
+                                     departure_time=datetime.datetime.now())
+    return directions_result["rows"][0]["elements"][0]["duration"]["text"]
 
 def forecast_actions(request, index):
     if request.method == 'POST':
@@ -90,8 +108,7 @@ def forecast_actions(request, index):
                 messages.success(request, 'Location moved to the top successfully.')
             else:
                 messages.success(request, 'Location already at the top')
-
-
+            
             
     return redirect('index')
             
